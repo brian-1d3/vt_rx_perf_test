@@ -84,6 +84,7 @@ Logical Cores: 8
 | Reactive Virtual Thread Scheduler | 1073 | 1066  | 1074   | 1203   | 2380.8    |
 | Reactive Elastic Scheduler        | 1018 | 2020  | 13060  | 125459 | N/A       |
 | Reactive Parallel Scheduler       | 2008 | 13059 | 125400 | N/A    | N/A       |
+
 _Measurements in milliseconds_
 
 _\* Mean average completion time of 10 executions_
