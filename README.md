@@ -78,7 +78,7 @@ Logical Cores: 8
 
 ### Results
 
-|                                   | 10   | 100   | 1000   | 10000  | 1000000\* |
+|                                   | 10   | 100   | 1000   | 10000  | 100000\* |
 | --------------------------------- | ---- | ----- | ------ | ------ |-----------|
 | Jdk Virtual Threads Executor      | 1016 | 1023  | 1041   | 1278   | 1890.7    |
 | Reactive Virtual Thread Scheduler | 1073 | 1066  | 1074   | 1203   | 2380.8    |
@@ -105,7 +105,7 @@ implementation details of the Reactive Elastic Scheduler as with this limited da
 order of magnitude faster than the Reactive Parallel Scheduler, which is actually very impressive and begs the question 
 of how it manages to overcome the Platform Thread model. 
 
-Meanwhile, the Jdk Virtual Threads Executor can process up to a million of these tasks in ~2 seconds. 
+Meanwhile, the Jdk Virtual Threads Executor can process up to 100000 of these tasks in ~2 seconds. 
 The Reactive Virtual Thread Scheduler appears slower by ~0.5 seconds, however the simplicity of this test and lack 
 statistics mean the difference cant be analysed fruitfully here. Just based on opinion, the difference between them 
 seems so small I would regard them as equal for the sake of this test. If you have a Project Reactor 
