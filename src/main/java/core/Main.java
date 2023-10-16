@@ -34,65 +34,29 @@ public class Main {
 
 /*
 
-[--numberOfTasks=10, --taskHandlers=JdkVirtualThreadsExecutor,JdkPlatformThread,ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
-Running 10 tasks using [JdkVirtualThreadsExecutor, JdkPlatformThread, ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
-10 tasks, JdkVirtualThreadsExecutor completed in 1015ms
-10 tasks, JdkPlatformThread completed in 1006ms
-10 tasks, ReactiveVirtualThreadScheduler completed in 1075ms
-10 tasks, ReactiveElasticScheduler completed in 1021ms
-10 tasks, ReactiveParallelScheduler completed in 2009ms
-[--numberOfTasks=100, --taskHandlers=JdkVirtualThreadsExecutor,JdkPlatformThread,ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
-Running 100 tasks using [JdkVirtualThreadsExecutor, JdkPlatformThread, ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
-100 tasks, JdkVirtualThreadsExecutor completed in 1017ms
-100 tasks, JdkPlatformThread completed in 1020ms
-100 tasks, ReactiveVirtualThreadScheduler completed in 1067ms
-100 tasks, ReactiveElasticScheduler completed in 2024ms
-100 tasks, ReactiveParallelScheduler completed in 13055ms
-[--numberOfTasks=1000, --taskHandlers=JdkVirtualThreadsExecutor,JdkPlatformThread,ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
-Running 1000 tasks using [JdkVirtualThreadsExecutor, JdkPlatformThread, ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
-1000 tasks, JdkVirtualThreadsExecutor completed in 1040ms
-1000 tasks, JdkPlatformThread completed in 1089ms
-1000 tasks, ReactiveVirtualThreadScheduler completed in 1073ms
-1000 tasks, ReactiveElasticScheduler completed in 13078ms
-1000 tasks, ReactiveParallelScheduler completed in 125377ms
-[--numberOfTasks=10000, --taskHandlers=JdkVirtualThreadsExecutor,JdkPlatformThread,ReactiveVirtualThreadScheduler,ReactiveElasticScheduler]
-Running 10000 tasks using [JdkVirtualThreadsExecutor, JdkPlatformThread, ReactiveVirtualThreadScheduler, ReactiveElasticScheduler]
-10000 tasks, JdkVirtualThreadsExecutor completed in 1322ms
-10000 tasks, JdkPlatformThread completed in 3127ms
-10000 tasks, ReactiveVirtualThreadScheduler completed in 1127ms
-10000 tasks, ReactiveElasticScheduler completed in 126719ms
+[--numberOfTasks=10, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 10 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+10 tasks, ReactiveVirtualThreadScheduler completed in 1072ms
+10 tasks, ReactiveElasticScheduler completed in 1018ms
+10 tasks, ReactiveParallelScheduler completed in 2011ms
+[--numberOfTasks=100, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 100 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+100 tasks, ReactiveVirtualThreadScheduler completed in 1066ms
+100 tasks, ReactiveElasticScheduler completed in 2019ms
+100 tasks, ReactiveParallelScheduler completed in 13048ms
+[--numberOfTasks=1000, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 1000 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+1000 tasks, ReactiveVirtualThreadScheduler completed in 1087ms
+1000 tasks, ReactiveElasticScheduler completed in 13060ms
+1000 tasks, ReactiveParallelScheduler completed in 125392ms
+[--numberOfTasks=10000, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 10000 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+10000 tasks, ReactiveVirtualThreadScheduler completed in 1364ms
+10000 tasks, ReactiveElasticScheduler completed in 125406ms
+10000 tasks, ReactiveParallelScheduler completed in 1253536ms
+
 
 ~~~ 100000 Tasks
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 27246ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 28043ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 27743ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 27157ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 28109ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 26809ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 26520ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 26652ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 26680ms
-[--numberOfTasks=100000, --taskHandlers=JdkPlatformThread]
-Running 100000 tasks using [JdkPlatformThread]
-100000 tasks, JdkPlatformThread completed in 26513ms
 [--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
 Running 100000 tasks using [ReactiveVirtualThreadScheduler]
 100000 tasks, ReactiveVirtualThreadScheduler completed in 2555ms
@@ -122,37 +86,6 @@ Running 100000 tasks using [ReactiveVirtualThreadScheduler]
 100000 tasks, ReactiveVirtualThreadScheduler completed in 2411ms
 [--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
 Running 100000 tasks using [ReactiveVirtualThreadScheduler]
-100000 tasks, ReactiveVirtualThreadScheduler completed in 2396ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 1553ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2256ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2170ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2141ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2330ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2178ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2131ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 1733ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 1496ms
-[--numberOfTasks=100000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 100000 tasks using [JdkVirtualThreadsExecutor]
-100000 tasks, JdkVirtualThreadsExecutor completed in 2182ms
 
 ---- 1000000 tasks
 
@@ -185,35 +118,9 @@ Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
 1000000 tasks, ReactiveVirtualThreadScheduler completed in 15537ms
 [--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
 Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
-1000000 tasks, ReactiveVirtualThreadScheduler completed in 15900ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 10429ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 10535ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 10801ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 16309ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 11619ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 16701ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 11502ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 15591ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 16263ms
-[--numberOfTasks=1000000, --taskHandlers=JdkVirtualThreadsExecutor]
-Running 1000000 tasks using [JdkVirtualThreadsExecutor]
-1000000 tasks, JdkVirtualThreadsExecutor completed in 10967ms
+
+[--numberOfTasks=100000, --taskHandlers=ReactiveElasticScheduler]
+Running 100000 tasks using [ReactiveElasticScheduler]
+100000 tasks, ReactiveElasticScheduler completed in 1254028ms
+
  */
