@@ -1,92 +1,147 @@
 package core;
 
 import core.vt_rx_perf_test.RunTest;
+import core.vt_rx_perf_test.Utils;
 import core.vt_rx_perf_test.code_under_test.AsyncTaskHandler;
+import core.vt_rx_perf_test.code_under_test.JdkPlatformThread;
 import core.vt_rx_perf_test.code_under_test.JdkVirtualThreadExecutor;
 import core.vt_rx_perf_test.code_under_test.ReactorElasticScheduler;
 import core.vt_rx_perf_test.code_under_test.ReactorParallelScheduler;
 import core.vt_rx_perf_test.code_under_test.ReactorVirtualThreadScheduler;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+
+import static core.vt_rx_perf_test.RunTest.getTaskHandlers;
 
 public class Main {
     public static void main(String[] args){
 
-        int numberOfTasks = 1000;
+        var commands = Utils.parseCommands(args);
+        var numberOfTasks = commands.numberOfTasks();
+        var asyncTaskHandlers = getTaskHandlers(commands.asyncTaskHandlers());
 
-        var asyncTaskHandlers = new LinkedHashMap<String, AsyncTaskHandler>();
-        asyncTaskHandlers.put("Jdk Virtual Threads Executor", new JdkVirtualThreadExecutor());
-        asyncTaskHandlers.put("Reactive Virtual Thread Scheduler", new ReactorVirtualThreadScheduler());
-        asyncTaskHandlers.put("Reactive Elastic Scheduler", new ReactorElasticScheduler());
-        asyncTaskHandlers.put("Reactive Parallel Scheduler", new ReactorParallelScheduler());
+        System.out.printf("Running %s tasks using %s\n", numberOfTasks, asyncTaskHandlers.keySet());
 
         var runTest = new RunTest();
 
         asyncTaskHandlers.forEach((k, v) ->{
             var result = runTest.runTasks(v, numberOfTasks);
-            System.out.println("%s completed in %sms".formatted(k, result));
+            System.out.println("%s tasks, %s completed in %sms".formatted(numberOfTasks, k, result));
         });
-
-        /*
-        RESULTS:
-
-        When number of tasks = 10
-
-        Jdk Virtual Threads Executor completed in 1016 milliseconds
-        Reactive Virtual Thread Scheduler completed in 1073 milliseconds
-        Reactive Elastic Scheduler completed in 1018 milliseconds
-        Reactive Parallel Scheduler completed in 2008 milliseconds
-
-        ~~~
-        When number of tasks = 100
-
-        Jdk Virtual Threads Executor completed in 1023 milliseconds
-        Reactive Virtual Thread Scheduler completed in 1066 milliseconds
-        Reactive Elastic Scheduler completed in 2020 milliseconds
-        Reactive Parallel Scheduler completed in 13059 milliseconds
-
-        ~~~
-        When number of tasks = 1000
-
-        Jdk Virtual Threads Executor completed in 1041 milliseconds
-        Reactive Virtual Thread Scheduler completed in 1074 milliseconds
-        Reactive Elastic Scheduler completed in 13060 milliseconds
-        Reactive Parallel Scheduler completed in 125400 milliseconds
-
-        ~~~
-        When number of tasks = 10000
-
-        Jdk Virtual Threads Executor completed in 1278 milliseconds
-        Reactive Virtual Thread Scheduler completed in 1203 milliseconds
-        Reactive Elastic Scheduler completed in 125459 milliseconds
-        Reactive Parallel Scheduler [No test - est. 1250000ms - 20.8 minutes]
-
-        ~~~~
-        When number of tasks = 100000
-
-        Jdk Virtual Threads Executor completed in 2272ms
-        Jdk Virtual Threads Executor completed in 1463ms
-        Jdk Virtual Threads Executor completed in 1480ms
-        Jdk Virtual Threads Executor completed in 1509ms
-        Jdk Virtual Threads Executor completed in 2170ms
-        Jdk Virtual Threads Executor completed in 1662ms
-        Jdk Virtual Threads Executor completed in 2145ms
-        Jdk Virtual Threads Executor completed in 2281ms
-        Jdk Virtual Threads Executor completed in 1793ms
-        Jdk Virtual Threads Executor completed in 2132ms
-
-        Reactive Virtual Thread Scheduler completed in 2278ms
-        Reactive Virtual Thread Scheduler completed in 2306ms
-        Reactive Virtual Thread Scheduler completed in 1624ms
-        Reactive Virtual Thread Scheduler completed in 2514ms
-        Reactive Virtual Thread Scheduler completed in 2541ms
-        Reactive Virtual Thread Scheduler completed in 3207ms
-        Reactive Virtual Thread Scheduler completed in 2409ms
-        Reactive Virtual Thread Scheduler completed in 2291ms
-        Reactive Virtual Thread Scheduler completed in 2247ms
-        Reactive Virtual Thread Scheduler completed in 2391ms
-         */
-
     }
 }
 
+/*
+
+[--numberOfTasks=10, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 10 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+10 tasks, ReactiveVirtualThreadScheduler completed in 1072ms
+10 tasks, ReactiveElasticScheduler completed in 1018ms
+10 tasks, ReactiveParallelScheduler completed in 2011ms
+[--numberOfTasks=100, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 100 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+100 tasks, ReactiveVirtualThreadScheduler completed in 1066ms
+100 tasks, ReactiveElasticScheduler completed in 2019ms
+100 tasks, ReactiveParallelScheduler completed in 13048ms
+[--numberOfTasks=1000, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 1000 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+1000 tasks, ReactiveVirtualThreadScheduler completed in 1087ms
+1000 tasks, ReactiveElasticScheduler completed in 13060ms
+1000 tasks, ReactiveParallelScheduler completed in 125392ms
+[--numberOfTasks=10000, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 10000 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+10000 tasks, ReactiveVirtualThreadScheduler completed in 1364ms
+10000 tasks, ReactiveElasticScheduler completed in 125406ms
+10000 tasks, ReactiveParallelScheduler completed in 1253536ms
+
+
+~~~ 100000 Tasks
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2555ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2660ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2444ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 3163ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2330ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2247ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2645ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2605ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+100000 tasks, ReactiveVirtualThreadScheduler completed in 2411ms
+[--numberOfTasks=100000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 100000 tasks using [ReactiveVirtualThreadScheduler]
+
+---- 1000000 tasks
+
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 16833ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 15366ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 16351ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 16635ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 16499ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 16185ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 16556ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 15703ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+1000000 tasks, ReactiveVirtualThreadScheduler completed in 15537ms
+[--numberOfTasks=1000000, --taskHandlers=ReactiveVirtualThreadScheduler]
+Running 1000000 tasks using [ReactiveVirtualThreadScheduler]
+
+[--numberOfTasks=100000, --taskHandlers=ReactiveElasticScheduler]
+Running 100000 tasks using [ReactiveElasticScheduler]
+100000 tasks, ReactiveElasticScheduler completed in 1254028ms
+
+--- blocking I/O test
+[--numberOfTasks=10, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 10 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+10 tasks, ReactiveVirtualThreadScheduler completed in 205ms
+10 tasks, ReactiveElasticScheduler completed in 111ms
+10 tasks, ReactiveParallelScheduler completed in 114ms
+[--numberOfTasks=100, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 100 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+100 tasks, ReactiveVirtualThreadScheduler completed in 912ms
+100 tasks, ReactiveElasticScheduler completed in 594ms
+100 tasks, ReactiveParallelScheduler completed in 602ms
+[--numberOfTasks=1000, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 1000 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+1000 tasks, ReactiveVirtualThreadScheduler completed in 6274ms
+1000 tasks, ReactiveElasticScheduler completed in 5921ms
+1000 tasks, ReactiveParallelScheduler completed in 5923ms
+[--numberOfTasks=10000, --taskHandlers=ReactiveVirtualThreadScheduler,ReactiveElasticScheduler,ReactiveParallelScheduler]
+Running 10000 tasks using [ReactiveVirtualThreadScheduler, ReactiveElasticScheduler, ReactiveParallelScheduler]
+10000 tasks, ReactiveVirtualThreadScheduler completed in 59461ms
+10000 tasks, ReactiveElasticScheduler completed in 58569ms
+10000 tasks, ReactiveParallelScheduler completed in 58425ms
+ */
