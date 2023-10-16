@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static core.vt_rx_perf_test.RunTest.JDK_PLATFORM_THREADS;
+import static core.vt_rx_perf_test.RunTest.JDK_VIRTUAL_THREADS;
 import static core.vt_rx_perf_test.RunTest.JDK_VIRTUAL_THREADS_EXECUTOR;
 import static core.vt_rx_perf_test.RunTest.REACTIVE_ELASTIC_SCHEDULER;
 import static core.vt_rx_perf_test.RunTest.REACTIVE_PARALLEL_SCHEDULER;
@@ -16,7 +17,7 @@ import static core.vt_rx_perf_test.RunTest.REACTIVE_VIRTUAL_THREADS_SCHEDULER;
 public class Utils {
 
     public static Set<String> asynTaskHandelerNameSet = Set.of(
-        JDK_VIRTUAL_THREADS_EXECUTOR, JDK_PLATFORM_THREADS, REACTIVE_VIRTUAL_THREADS_SCHEDULER,
+        JDK_VIRTUAL_THREADS_EXECUTOR, JDK_VIRTUAL_THREADS, JDK_PLATFORM_THREADS, REACTIVE_VIRTUAL_THREADS_SCHEDULER,
         REACTIVE_ELASTIC_SCHEDULER, REACTIVE_PARALLEL_SCHEDULER
     );
 
@@ -29,8 +30,7 @@ public class Utils {
         }
 
         var numberOfTasks = Integer.parseInt(argsMap.get(RunTest.Commands.NUMBER_OF_TASKS));
-        var taskHandlerSet =
-            Set.of(argsMap.get(RunTest.Commands.TASK_HANDLERS).split(","));
+        var taskHandlerSet = Set.of(argsMap.get(RunTest.Commands.TASK_HANDLERS).split(","));
 
         if(!asynTaskHandelerNameSet.containsAll(taskHandlerSet)){
             throw new IllegalArgumentException("Task handlers not formatted correctly");

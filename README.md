@@ -31,3 +31,7 @@ sh test_scripts/run-1000000.sh
 | Reactive Virtual Thread Scheduler | 1075 | 1067  | 1073   | 1127   | 2545.6   | 16156.5   |
 | Reactive Elastic Scheduler        | 1021 | 2024  | 13078  | 126719 | N/A      | N/A       |
 | Reactive Parallel Scheduler       | 2009 | 13055 | 125377 | N/A    | N/A      | N/A       |
+
+_Measurements in milliseconds_
+
+_\* Mean average completion time of 10 executions_

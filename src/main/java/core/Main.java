@@ -29,11 +29,7 @@ public class Main {
             var result = runTest.runTasks(v, numberOfTasks);
             System.out.println("%s tasks, %s completed in %sms".formatted(numberOfTasks, k, result));
         });
-
-
     }
-
-
 }
 
 /*

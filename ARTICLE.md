@@ -131,6 +131,8 @@ configuration and appeared to seamlessly integrate into Project Reactor code.
 It would be interesting to explore what can limit the performance of Virtual Threads. Perhaps the benefit becomes less 
 clear when there is limited resource that each virtual thread needs to consume.
 
+Note - CPU bound operations will not have the performance boost
+
 ### Further Reading
 
 [Spring - Embracing Virtual Threads](https://spring.io/blog/2022/10/11/embracing-virtual-threads)

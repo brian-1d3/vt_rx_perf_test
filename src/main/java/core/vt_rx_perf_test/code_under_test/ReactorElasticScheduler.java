@@ -8,4 +8,10 @@ public class ReactorElasticScheduler implements AsyncTaskHandler {
     public void doAsync(Runnable runnable) {
         Mono.fromRunnable(runnable).publishOn(Schedulers.boundedElastic()).subscribe();
     }
+//
+//    private void blah(){
+//        var scheduler = Schedulers.boundedElastic();
+//
+//        scheduler.schedule()
+//    }
 }
